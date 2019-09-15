@@ -44,12 +44,13 @@ Docker folder :
                             command : docker build -t nginx-reverse-proxy .
                            
                             To run image:
-                            command : docker run --net=host --rm --name nginx-reverse-proxy reverse-proxy 
+                            command : docker run --net=host --rm --name reverse-proxy  nginx-reverse-proxy 
                             
      
-   docker-compose.yml  file  which builds image nginx-reverse-proxy and image tomcat which redirect to apache tomcat.
+   docker-compose.yml  file  which builds image nginx-reverse-proxy and image apache-tomcat which redirect to apache tomcat.
                                      
     
-                                   command : docker-compose up -d
+                                   command : docker-compose up -d --build
+                                   
                                    
      

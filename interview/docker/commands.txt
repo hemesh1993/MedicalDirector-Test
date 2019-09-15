@@ -1,3 +1,5 @@
 docker build -t nginx-reverse-proxy .
 docker run --net=host --rm --name  reverse-proxy nginx-reverse-proxy
 
+docker-compose up -d --build
+

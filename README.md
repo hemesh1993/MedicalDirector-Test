@@ -47,6 +47,14 @@ Docker folder :
                             command : docker run --net=host --rm --name reverse-proxy  nginx-reverse-proxy 
                             
      
+     
+ Access for non-privileged user
+     
+ username : admin
+     
+ password : admin
+                            
+     
    docker-compose.yml  file  which builds image nginx-reverse-proxy and image apache-tomcat which redirect to apache tomcat.
                                      
     

@@ -1,0 +1,53 @@
+---     
+  - hosts: all
+    become: true
+    become_method: sudo
+    tasks:                                             # 1 - Apache Tomcat installation
+     - name: install apache tomcat
+       yum:
+        name:
+          - tomcat 
+          - tomcat-webapps
+          - tomcat-admin-webapps 
+        state: present
+     - name: configure tomcat user
+       copy:
+        src: files/tomcat-users.xml
+        dest: /usr/share/tomcat/conf/tomcat-users.xml
+     - name: Adding index page
+       copy:
+        src: files/index.jsp
+        dest: /usr/share/tomcat/webapps/ROOT/
+     - name: start tomcat
+       systemd:
+        name: tomcat
+        daemon_reload: yes
+        state: restarted
+     - name: install nginx                                #  1 - Nginx installation
+       yum:
+        name:
+          - nginx 
+        state: present
+     - name: Configure nginx proxy
+       template:
+        src: files/nginx.conf
+        dest: /etc/nginx/
+     - name: start nginx
+       service:
+          name: nginx
+          state: restarted
+     - name: Disallow root SSH access                       # 2 - SSH access is disabled for the root user
+       lineinfile:
+          dest: /etc/ssh/sshd_config
+          regexp: "^PermitRootLogin"
+          line: "PermitRootLogin no"
+          state: present
+       notify: Restart sshd
+    roles:                    # 3- Role provides security-related configurations, providing all-round base protection
+      - dev-sec.os-hardening
+    handlers:
+          - name: Restart sshd
+            service:
+              name:
+                - sshd
+              state: restarted

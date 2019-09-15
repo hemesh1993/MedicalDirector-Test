@@ -1,0 +1,23 @@
+version: "3"
+services:
+
+
+  tomcat:
+    build:
+      context: ./tomcat                    
+      dockerfile: dockerfile
+    container_name: server                       # Giving container name for build image
+    image: apache-tomcat                         # name for build image
+
+  nginx:
+    build:
+      context: ./nginx                           
+      dockerfile: Dockerfile
+    container_name: reverse-proxy                # Giving container name for build image
+    image: nginx-reverse-proxy                   # name for build image
+    links:
+       - tomcat
+    depends_on:
+       - tomcat
+    ports:                                       # opening ports
+      - 80:80

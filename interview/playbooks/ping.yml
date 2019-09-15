@@ -1,0 +1,12 @@
+# ping all hosts
+
+---     
+  - hosts: server
+    become: true
+    become_method: sudo
+    tasks:
+     - name: ping server 
+       action: ping
+       
+       
+    

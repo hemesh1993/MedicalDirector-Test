@@ -2,7 +2,7 @@
 
 
 [server]
-app1 ansible_host=54.172.77.243
+app1 ansible_host=54.172.77.243                     # provide Ip address of the server
 
 
 

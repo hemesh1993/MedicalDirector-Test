@@ -1,4 +1,4 @@
-# MedicalDirector-Test
+# Test
 Technical Test
 # 1
 
